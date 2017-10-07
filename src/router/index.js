@@ -8,7 +8,7 @@ import HomePage from '@/components/homePage'
 // }
 import Music from '@/components/music'
 import Game from '@/components/game'
-import Movie from '@/components/movie'
+import Lucky from '@/components/lucky'
 import Poem from '@/components/poem'
 import Article from '@/components/article'
 import Test from '@/components/test'
@@ -31,8 +31,8 @@ export default new Router({
       component: Game
     },
     {
-      path:'/movie',
-      component: Movie
+      path:'/lucky',
+      component: Lucky
     },
     {
       path:'/test',

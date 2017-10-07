@@ -1,56 +1,37 @@
 <template>
   <div>
-    <div class="tiger-head">
-      <el-row type="flex" justify="end" class="bg-blue">
-        <el-col :span="10" class="flex-start">
-          <el-button type="primary">
-            <router-link to="/" class="home">首页</router-link>
-          </el-button>
-        </el-col>
-        <el-col :span="14" class="flex-end">
-          <div class="block">
-            <span class="demonstration">主题色</span>
-            <el-color-picker v-model="themeColor" @change="changeTheme"></el-color-picker>
-          </div>
-          <el-dropdown>
-            <el-button type="primary">
-              开发组件<i class="el-icon-caret-bottom el-icon-right"></i>
-            </el-button>
-            <el-dropdown-menu slot="dropdown" >
-              <el-dropdown-item @click.native="link('music')">
-                music
-              </el-dropdown-item>
-              <el-dropdown-item @click.native="link('game')">
-                game
-              </el-dropdown-item >
-              <el-dropdown-item @click.native="link('movie')">
-                movie
-              </el-dropdown-item>
-              <el-dropdown-item @click.native="link('test')">
-                test
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-          <el-dropdown split-button type="primary" >
-          我的阅读
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item @click.native="link('poem')">
-                poem
-              </el-dropdown-item>
-              <el-dropdown-item @click.native="link('article')">
-                article
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-          <el-button type="primary" @click="dialogFormVisible=true">游客登陆</el-button> 
+    <div class="tiger-head flex-space-between">
+      <div class="block">
+        <span class="demonstration">主题色</span>
+        <el-color-picker v-model="themeColor" @change="changeTheme"></el-color-picker>
+      </div>
+      <el-menu :default-active="activeIndex" mode="horizontal" 
+              theme="light" text-color="#fff"  router>
+        <el-menu-item index="/">首页</el-menu-item>
+        <el-submenu index="1">
+          <template slot="title">开发组件</template>
+          <el-menu-item index="/music">music</el-menu-item>
+          <el-menu-item index="/game">game</el-menu-item>
+          <el-menu-item index="/lucky">lucky</el-menu-item>
+          <el-menu-item index="/test">test</el-menu-item>
+        </el-submenu>
+        <el-submenu index="2">
+          <template slot="title">我的阅读</template>
+          <el-menu-item index="/poem">poem</el-menu-item>
+          <el-menu-item index="/article">article</el-menu-item>
+        </el-submenu>
+        <el-menu-item @click="dialogFormVisible=true" index="2-1">
+          游客登陆
+        </el-menu-item>
+        <el-menu-item @click="dialogFormVisible=true" index="2-2">
           <span class="face"></span>
-        </el-col>
-      </el-row>
+        </el-menu-item>
+      </el-menu> 
     </div>
 
     <div class="container"  v-bind:style="{backgroundColor:bgColor}">
       <el-row type='flex' justify="space-between">
-        <el-col :span="7">
+        <el-col :span="6">
           <el-row>
             <el-col :span="24">
               <date-picker></date-picker>
@@ -64,14 +45,14 @@
                   <h3>黄鹤楼送孟浩然之广陵</h3>
                   <p>故人西辞黄鹤楼</p>
                   <p>烟花三月下扬州</p>
-                  <p孤帆远影碧空尽</p>
+                  <p>孤帆远影碧空尽</p>
                   <p>唯见长江天际流</p>
                 </div>
               </el-card>
             </el-col>
           </el-row>
         </el-col>
-        <el-col :span="16">
+        <el-col :span="18" class="tiger-router">
           <keep-alive>
             <router-view></router-view>
           </keep-alive>
@@ -106,6 +87,7 @@ export default {
   },
   data () {
     return {
+        activeIndex:"",
         dialogFormVisible:false,
         form:{
           name:"I am a small bird",
@@ -149,12 +131,15 @@ export default {
     padding:10px 0;
     text-align: center;
   }
+  .el-submenu .el-menu-item {
+    min-width: 100px;
+  }
   .home {
     color:#ffF;
   }
   .bg-blue {
     background:@bg-color;
-  }
+  } 
   .text-center {
     text-align: center;
   }
@@ -184,20 +169,24 @@ export default {
     min-height: 400px;
     padding:0 10px;
   }
+  .tiger-router {
+    padding:20px;
+  }
   .face {
-    float: left;
-    width: 36px;
-    height: 36px;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-size: cover;
     background-image: url(/static/tiger.jpg);
     cursor: pointer;
   }
   .demonstration {
-    float: left;
+    display: inline-block;
     margin: 0 5px;
-    height: 36px;
-    line-height: 36px;
-    color:#fff;
+    height: 60px;
+    line-height: 60px;
+    color:#000;
+    vertical-align: middle;
   }
 </style>
